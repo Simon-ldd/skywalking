@@ -24,18 +24,18 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterc
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
+import org.apache.skywalking.apm.plugin.jdbc.postgresql.Constants;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static org.apache.skywalking.apm.agent.core.plugin.bytebuddy.ArgumentTypeNameMatch.takesArgumentWithType;
 import static org.apache.skywalking.apm.agent.core.plugin.match.NameMatch.byName;
-import static org.apache.skywalking.apm.plugin.jdbc.postgresql.Variables.PG_PREPARED_STATEMENT_EXECUTE_METHOD_INTERCEPTOR;
 
 public class PgCallableStatementInstrumentation extends ClassInstanceMethodsEnhancePluginDefine {
-    @Override protected ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return new ConstructorInterceptPoint[0];
     }
 
-    @Override protected InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+    @Override public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
         return new InstanceMethodsInterceptPoint[] {
             new InstanceMethodsInterceptPoint() {
                 @Override public ElementMatcher<MethodDescription> getMethodsMatcher() {
@@ -44,7 +44,7 @@ public class PgCallableStatementInstrumentation extends ClassInstanceMethodsEnha
                 }
 
                 @Override public String getMethodsInterceptor() {
-                    return PG_PREPARED_STATEMENT_EXECUTE_METHOD_INTERCEPTOR;
+                    return Constants.PG_PREPARED_STATEMENT_EXECUTE_METHOD_INTERCEPTOR;
                 }
 
                 @Override public boolean isOverrideArgs() {

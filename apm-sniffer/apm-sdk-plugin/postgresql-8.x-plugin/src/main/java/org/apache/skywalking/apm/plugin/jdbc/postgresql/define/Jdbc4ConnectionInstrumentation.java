@@ -25,6 +25,7 @@ import org.apache.skywalking.apm.agent.core.plugin.interceptor.ConstructorInterc
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.InstanceMethodsInterceptPoint;
 import org.apache.skywalking.apm.agent.core.plugin.interceptor.enhance.ClassInstanceMethodsEnhancePluginDefine;
 import org.apache.skywalking.apm.agent.core.plugin.match.ClassMatch;
+import org.apache.skywalking.apm.plugin.jdbc.postgresql.Constants;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
 import static net.bytebuddy.matcher.ElementMatchers.takesArguments;
@@ -47,11 +48,11 @@ public class Jdbc4ConnectionInstrumentation extends ClassInstanceMethodsEnhanceP
 
     public static final String ENHANCE_CLASS = "org.postgresql.jdbc4.Jdbc4Connection";
 
-    @Override protected ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
+    @Override public ConstructorInterceptPoint[] getConstructorsInterceptPoints() {
         return new ConstructorInterceptPoint[0];
     }
 
-    @Override protected InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
+    @Override public InstanceMethodsInterceptPoint[] getInstanceMethodsInterceptPoints() {
         return new InstanceMethodsInterceptPoint[] {
             new InstanceMethodsInterceptPoint() {
                 @Override public ElementMatcher<MethodDescription> getMethodsMatcher() {
